@@ -16,16 +16,16 @@ export const Transactions: TransactionsComponent = ({
 
   const setTransactionApproval = useCallback<SetTransactionApprovalFunction>(
     async ({ transactionId, newValue }) => {
+      onApprovalToggle(transactionId);
       await fetchWithoutCache<void, SetTransactionApprovalParams>(
         "setTransactionApproval",
         {
           transactionId,
-          value: newValue,
+          value: newValue, // Use the new value from the parameter
         }
       );
-      onApprovalToggle(transactionId); // Added this line to update the approval state
     },
-    [fetchWithoutCache, onApprovalToggle] // Added onApprovalToggle as a dependency
+    [fetchWithoutCache, onApprovalToggle]
   );
 
   if (transactions === null) {

@@ -13,8 +13,8 @@ export function App() {
   const { data: paginatedTransactions, ...paginatedTransactionsUtils } = usePaginatedTransactions()
   const { data: transactionsByEmployee, ...transactionsByEmployeeUtils } = useTransactionsByEmployee()
   //bug #5 code for fixing loadstates of employee and transtactions
-  const [isLoadingEmployees, setIsLoadingEmployees] = useState(false) // Add this line
-  const [isLoadingTransactions, setIsLoadingTransactions] = useState(false) // Add this line
+  const [isLoadingEmployees, setIsLoadingEmployees] = useState(false) // Added this line
+  const [isLoadingTransactions, setIsLoadingTransactions] = useState(false) // Added this line
  
   // Add this line to store the current employee ID
  const [currentEmployeeId, setCurrentEmployeeId] = useState(EMPTY_EMPLOYEE.id)
@@ -24,10 +24,13 @@ export function App() {
  
 
  const onApprovalToggle = (transactionId: string) => {
-  setTransactionApprovalStates((prevState) => ({
-    ...prevState,
-    [transactionId]: !prevState[transactionId],
-  }));
+  return setTransactionApprovalStates((prevState) => {
+    const newApprovalState = {
+      ...prevState,
+      [transactionId]: !prevState[transactionId],
+    };
+    return newApprovalState;
+  });
 };
 
 
@@ -51,7 +54,7 @@ export function App() {
   //edited this function to fix bug #3 where the page will crash when you select all employees after selecting a single employee
   const loadTransactionsByEmployee = useCallback(
     async (employeeId: string) => {
-      setCurrentEmployeeId(employeeId); // Add this line to store the current employee ID
+      setCurrentEmployeeId(employeeId); // Added this line to store the current employee ID
       if (employeeId === EMPTY_EMPLOYEE.id) {
         await loadAllTransactions()
       } else {
@@ -101,7 +104,7 @@ export function App() {
 
             await loadTransactionsByEmployee(newValue.id)
           }}
-          disabled={paginatedTransactionsUtils.loading} // Add this line to disable the InputSelect while loading more data
+          disabled={paginatedTransactionsUtils.loading} // Added this line to disable the InputSelect while loading more data
         />
 
         <div className="RampBreak--l" />
@@ -109,7 +112,7 @@ export function App() {
        <div className="RampGrid">
        <Transactions
               transactions={transactions}
-              transactionApprovalStates={transactionApprovalStates} // Add this line
+              transactionApprovalStates={transactionApprovalStates} // Added this line
               onApprovalToggle={onApprovalToggle}
           />
         {transactions !== null &&
