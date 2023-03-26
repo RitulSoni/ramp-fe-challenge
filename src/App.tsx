@@ -16,7 +16,7 @@ export function App() {
   const [isLoadingEmployees, setIsLoadingEmployees] = useState(false) // Added this line
   const [isLoadingTransactions, setIsLoadingTransactions] = useState(false) // Added this line
  
-  // Add this line to store the current employee ID
+  // Added this line to store the current employee ID
  const [currentEmployeeId, setCurrentEmployeeId] = useState(EMPTY_EMPLOYEE.id)
 
  const [transactionApprovalStates, setTransactionApprovalStates] = useState<Record<string, boolean>>({});
@@ -116,7 +116,7 @@ export function App() {
               onApprovalToggle={onApprovalToggle}
           />
         {transactions !== null &&
-          currentEmployeeId === EMPTY_EMPLOYEE.id && // Replace this condition with the new approach
+          currentEmployeeId === EMPTY_EMPLOYEE.id && //added additional checks
           paginatedTransactions?.nextPage !== null && ( //these fix bug #6
             <button
               className="RampButton"

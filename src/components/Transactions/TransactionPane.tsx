@@ -19,12 +19,12 @@ export const TransactionPane: TransactionPaneComponent = ({
       </div>
       <InputCheckbox
         id={transaction.id}
-        checked={approved ?? transaction.approved} // Update this line to use `approved` prop, fallback to `transaction.approved`
+        checked={approved ?? transaction.approved} // Updated this line to use `approved` prop, fallback to `transaction.approved`
         disabled={loading}
         onChange={async (newValue) => {
           await consumerSetTransactionApproval({
             transactionId: transaction.id,
-            newValue: newValue, // Use the new value from the onChange event
+            newValue: newValue, // Used the new value from the onChange event
           });
         }}
       />
